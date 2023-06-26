@@ -44,13 +44,14 @@ app.post('/tweets', (req, res) => {
 
     const newTweet = {
         username, 
-        tweet
+        tweet,
+        avatar: users.find(us => us.username === username).avatar
     }
     
-    tweets.push(tweet);
+    tweets.push(newTweet);
     res.sendStatus(200);
 })
 
 app.get('/tweets', (req, res) => {
-    console.log(req)
+    
 })
