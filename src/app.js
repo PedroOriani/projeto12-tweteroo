@@ -37,7 +37,9 @@ app.post('/tweets', (req, res) => {
     if(tweet.length < 3){
         res.status(411).send('Must have at least 4 letters')
         return
-    }else if(!users.includes(username)){
+    }
+    
+    if(!users.includes(username)){
         res.sendStatus(401);
         return
     }
