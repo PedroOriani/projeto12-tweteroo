@@ -11,6 +11,16 @@ app.listen(PORT, () => console.log(`Servidor esta rodando na porta ${PORT}`))
 const users = [];
 const tweets = [];
 
+let newUser = {
+    username: '',
+    avatar: ''
+}
+
+let newTweet = {
+    username: '',
+    tweet: ''
+}
+
 app.post('/sign-up', (req, res) => {
 
     const { username, avatar } = req.body
@@ -19,7 +29,7 @@ app.post('/sign-up', (req, res) => {
         res.status(400).send('Error');
         return;
     }
-        const newUser = {
+        newUser = {
             username, 
             avatar
         }
@@ -28,30 +38,34 @@ app.post('/sign-up', (req, res) => {
             users.push(newUser);
         }
     
-        res.status(200).send('Ok');  
+        res.status(200).send('Ok');
+        console.log(users)
 })
 
 app.post('/tweets', (req, res) => {
     const { username, tweet } = req.body;
+
+    console.log('array:')
+    console.log(users)
 
     if(tweet.length < 3){
         res.status(411).send('Must have at least 4 letters')
         return
     }
     
-    if(!users.includes(username)){
+    if(!users.find(us => us.username === username)){
         res.sendStatus(401);
         return
     }
 
-    const newTweet = {
+    newTweet = {
         username, 
         tweet,
         avatar: users.find(us => us.username === username).avatar
     }
     
     tweets.push(newTweet);
-    res.sendStatus(200);
+    res.sendStatus(201);
 })
 
 app.get('/tweets', (req, res) => {
