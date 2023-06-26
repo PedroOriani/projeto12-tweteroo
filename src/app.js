@@ -38,7 +38,7 @@ app.post('/tweets', (req, res) => {
         res.status(411).send('Must have at least 4 letters')
         return
     }else if(!users.includes(username)){
-        res.status(401).send('UNAUTHORIZED')
+        res.sendStatus(401);
         return
     }
 
@@ -48,9 +48,9 @@ app.post('/tweets', (req, res) => {
     }
     
     tweets.push(tweet);
-    res.status(200).send('Ok');
+    res.sendStatus(200);
 })
 
 app.get('/tweets', (req, res) => {
-
+    console.log(req)
 })
