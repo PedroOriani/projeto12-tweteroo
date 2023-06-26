@@ -11,6 +11,8 @@ app.listen(PORT, () => console.log(`Servidor esta rodando na porta ${PORT}`))
 const users = [];
 const tweets = [];
 
+const len = tweets.length;
+
 let newUser = {
     username: '',
     avatar: ''
@@ -69,5 +71,10 @@ app.post('/tweets', (req, res) => {
 })
 
 app.get('/tweets', (req, res) => {
-    
+    if(tweets.length < 10){
+        res.send(tweets);
+    }else{
+        const last10 = tweets.slice(len-10, len);
+        res.send(last10)
+    }
 })
